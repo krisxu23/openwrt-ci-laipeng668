@@ -1,10 +1,12 @@
 name: IPQ60XX-LibWrt
 
-on:
-  workflow_dispatch:
-  workflow_call:
-  schedule:
-    - cron: 0 16 * * *
+#CI计划
+于:
+  #自动编译：当All-Clean运行完成后
+  workflow_run:
+    workflows: ["All-Clean"]
+    types:
+      - completed
 
 env:
   REPO_URL: https://github.com/laipeng668/openwrt-6.x.git
@@ -163,7 +165,7 @@ jobs:
         body: |
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
           ### 📒 固件信息
-          - 这是开启全功能NSS的6.12内核固件，默认主题为Argon；该固件在ImmortalWrt的基础上，添加了额外的软件包cpufreq、ddns、ttyd、upnp、wolplus、samba4、vlmcsd、aria2、autoreboot、uhttpd、wifischedule、frps、frpc、diskman、hd-idle、banip、acme、arpbind、usb-printer、homeproxy、oaf、sqm、wireguard、watchcat、3cat，并添加了若干工具，具体详见IPQ60XX.config。
+          - 这是开启全功能NSS的6.12内核固件，默认主题为Argon；该固件在ImmortalWrt的基础上，并添加了若干工具，具体详见IPQ60XX.config。
           - 💻 这是 ${{ env.FIRMWARE_TAG }} 平台使用的 OpenWrt 固件
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
