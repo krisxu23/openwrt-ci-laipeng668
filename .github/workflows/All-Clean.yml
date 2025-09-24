@@ -1,10 +1,13 @@
 name: All-Clean
 
 on:
+  #自动清理：每天00点
+  schedule:
+    - cron: 0 16 * * *
+  #手动清理
   workflow_dispatch:
-  workflow_call:
-  # schedule:
-  #   - cron: 0 3 * * 1
+
+permissions: write-all
 
 jobs:
   Cleaning:
