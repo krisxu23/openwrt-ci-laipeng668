@@ -1,7 +1,7 @@
 name: IPQ60XX-LibWrt
 
 #CI计划
-于:
+on:
   #自动编译：当All-Clean运行完成后
   workflow_run:
     workflows: ["All-Clean"]
