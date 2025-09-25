@@ -1,12 +1,10 @@
 name: IPQ60XX-LibWrt
 
-#CI计划
 on:
-  #自动编译：当All-Clean运行完成后
-  workflow_run:
-    workflows: ["All-Clean"]
-    types:
-      - completed
+  workflow_dispatch:
+  workflow_call:
+  schedule:
+    - cron: 0 16 * * *
 
 env:
   REPO_URL: https://github.com/laipeng668/openwrt-6.x.git
