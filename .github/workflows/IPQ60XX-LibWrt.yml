@@ -143,8 +143,14 @@ jobs:
         cd $OPENWRT_PATH/bin/targets/*/*
         cp $OPENWRT_PATH/.config ipq60xx.config
         mv config.buildinfo ipq60xx.config.buildinfo
-        mv -f $OPENWRT_PATH/bin/packages/*/*/*.apk packages
+        # 创建一个临时的 packages 目录
+        mkdir -p packages
+        # 使用 find 命令查找所有的 .ipk 和 .apk 文件，然后移动到 packages 目录
+        # 这种方法即使某种类型的文件不存在也不会报错
+        find $OPENWRT_PATH/bin/packages/ -type f \( -name "*.ipk" -o -name "*.apk" \) -exec mv -f {} packages/ \;
+        # 将 packages 目录打包
         tar -zcf ipq60xx.Packages.tar.gz packages
+        # 删除不再需要的文件和临时目录
         rm -rf packages feeds.buildinfo version.buildinfo sha256sums profiles.json
         echo "FIRMWARE_PATH=$PWD" >> $GITHUB_ENV
 
